@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'gestor_inmuebles.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mydatabase", #cambiar
-        "USER": "mydatabaseuser",#cambiar
-        "PASSWORD": "mypassword",#cambiar
+        "NAME": "inmuebles", #cambiar
+        "USER": "postgres", #cambiar
+        "PASSWORD": "Admin1234", #cambiar
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
