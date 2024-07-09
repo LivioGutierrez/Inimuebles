@@ -3,4 +3,4 @@
 ## Diagrama
 - **Diagrama**:
 
-![Diagrama](imagenes/Diagrama.png)
+![Diagrama](/imagenes/diagrama.png)
