@@ -2,4 +2,4 @@
 
 ## Diagrama
 
-(imagenes/Diagrama.PNG)
+![Diagrama](imagenes/Diagrama.PNG)
