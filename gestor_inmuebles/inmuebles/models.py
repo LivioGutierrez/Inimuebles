@@ -3,6 +3,14 @@ from django.db import models
 class Tipo_usuario(models.Model):
     nombre=models.CharField(max_length= 50, null= False)
 
+class Region(models.Model):
+    nombre = models.CharField(max_length=50, null= False)
+    #region = models.ForeignKey(Inmueble, null= True, on_delete=models.CASCADE)
+
+class Comuna(models.Model):
+    nombre = models.CharField(max_length=50, null= False)
+    region = models.ForeignKey(Region, null= False, on_delete=models.CASCADE)
+
 class Usuario (models.Model):
     rut = models.CharField(max_length=12, null=False, unique=True)
     nombre = models.CharField(max_length=50, null=False)
@@ -25,6 +33,7 @@ class Inmueble(models.Model):
     tipoinmueble = models.CharField(max_length=40, null=False)
     presio_mensual = models.FloatField(null=False)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    comuna = models.ForeignKey(Comuna, null=False, on_delete=models.CASCADE)
 
 class Estado_inmueble(models.Model):
     activo = models.BooleanField(null=False, default=False)
@@ -32,13 +41,7 @@ class Estado_inmueble(models.Model):
     fecha_termino = models.DateTimeField()
     inmueble = models.OneToOneField(Inmueble, null= False, on_delete=models.CASCADE)
 
-class Region(models.Model):
-    nombre = models.CharField(max_length=50, null= False)
-    region = models.ForeignKey(Inmueble, null= False, on_delete=models.CASCADE)
 
-class Comuna(models.Model):
-    nombre = models.CharField(max_length=50, null= False)
-    comuna = models.ForeignKey(Region, null= False, on_delete=models.CASCADE)
 
 class Tipo_inmueble(models.Model):
     nombre = models.CharField(max_length=50, null= False)
