@@ -2,6 +2,8 @@ from django.db import models
 
 class Tipo_usuario(models.Model):
     nombre=models.CharField(max_length= 50, null= False)
+    def __str__(self):
+        return f"{self.nombre}"
 
 class Region(models.Model):
     nombre = models.CharField(max_length=50, null= False)
@@ -10,6 +12,9 @@ class Region(models.Model):
 class Comuna(models.Model):
     nombre = models.CharField(max_length=50, null= False)
     region = models.ForeignKey(Region, null= False, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.nombre} - {self.region.nombre}"
 
 class Usuario (models.Model):
     rut = models.CharField(max_length=12, null=False, unique=True)
