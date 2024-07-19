@@ -1,35 +1,27 @@
 {% extends 'base.html' %}
 {% block title %}INDEX{% endblock %}
 
-{%block contenido%}
+{%block tabla%}
 <h1>Inmuebles</h1>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio Mensual</th>
+                <th scope="col">Comuna</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-            </tr>
+            {% for inmueble in inmuebles %}
+                <tr>
+                    {% comment %} <th scope="row">1</th> {% endcomment %}
+                    <td>{{inmueble.nombre}}</td>
+                    <td>{{inmueble.descripcion}}</td>
+                    <td>{{inmueble.presio_mensual}}</td>
+                    <td>{{inmueble.comuna}}</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}
