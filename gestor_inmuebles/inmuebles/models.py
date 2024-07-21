@@ -29,7 +29,7 @@ class Usuario (models.Model):
     direccion = models.CharField(max_length=50, null=False)
     telefono_personal = models.CharField(max_length=12, null=True)
     correo_electronico = models.CharField(max_length=100, null=False)
-    tipo_usuarios= models.OneToOneField(Tipo_usuario, null=False, on_delete=models.CASCADE)
+    tipo_usuarios= models.ForeignKey(Tipo_usuario, null=False, on_delete=models.CASCADE)
     
     def __str__(self):
         return f"{self.nombre}"

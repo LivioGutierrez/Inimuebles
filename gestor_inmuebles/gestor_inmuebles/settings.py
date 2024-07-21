@@ -126,3 +126,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# AUTHENTICATION_BACKENDS = [
+#     'path.to.your.RutBackend',  # Reemplaza con la ruta real a tu backend
+#     'django.contrib.auth.backends.ModelBackend',  # Para autenticación estándar
+# ]

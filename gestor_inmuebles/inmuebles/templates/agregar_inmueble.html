@@ -3,10 +3,18 @@
 
 
 {% block formularioagregarinmueble %}
-<h1>Agregar Inmueble</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
+<h2>Agregar inmueble</h2>
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <dix class="col-12 mt-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% comment %} {{ usuario_form.as_p }}
+                    {{ user_form.as_p }} {% endcomment %}
+                    <button type="submit">Agregar Inmueble</button>
+                </form>
+            </dix>
+        </div>
+    </div>
 {% endblock %}
