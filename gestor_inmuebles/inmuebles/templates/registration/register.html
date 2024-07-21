@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block registrar%}
+
+    <h2>Register</h2>
+    <div class="container d-flex justify-content-center">
+        <div class="row">
+            <dix class="col-12 mt-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ usuario_form.as_p }}
+                    {{ user_form.as_p }}
+                    <button type="submit">Register</button>
+                </form>
+            </dix>
+        </div>
+    </div>
+    
+
+{% endblock %}
