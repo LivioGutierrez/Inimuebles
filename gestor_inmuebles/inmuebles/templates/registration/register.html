@@ -9,7 +9,7 @@
             <dix class="col-12 mt-4">
                 <form method="post">
                     {% csrf_token %}
-                    {{ form_inmuebles.as_p }}
+                    {{ form.as_p }}
                     {% comment %} {{ usuario_form.as_p }}
                     {{ user_form.as_p }} {% endcomment %}
                     <button type="submit">Register</button>

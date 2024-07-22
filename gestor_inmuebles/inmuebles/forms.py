@@ -2,11 +2,13 @@ from django import forms
 from .models import Inmueble, Usuario, Tipo_usuario
 from django.core.exceptions import ValidationError
 
+# formulario para agregar inmuebles
 class FormularioInmueble(forms.ModelForm):
     class Meta:
         model = Inmueble
         fields = ['nombre', 'descripcion', 'm2_cuadraros', 'm2_totales', 'cant_estacionamiento', 'cant_habitacion', 'cant_baño', 'direccion', 'comuna', 'presio_mensual', 'usuario', 'tipo']
 
+# formulario de registro
 class RegistroFormulario(forms.Form):
     rut = forms.CharField(max_length=12, label="RUT")
     nombre = forms.CharField(max_length=50, label="Nombre")
@@ -34,6 +36,7 @@ class RegistroFormulario(forms.Form):
             raise ValidationError("El RUT ya está en uso. Por favor, elige otro.")
         return rut
 
+# formulario de iniciar sesion
 class LoginFormulario(forms.Form):
     rut = forms.CharField(max_length=12, label="RUT")
     password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")

@@ -8,13 +8,13 @@ from django.contrib import messages
 from django.contrib.auth import login,logout
 from django.urls import reverse
 
-
-# Create your views here.
+# funcion para obtener los inmuebles, redirigir al index y mostrar nombre del usuario
 def index (request):
     inmuebles= obtener_inmuebles
     nombre_usuario = request.user.username if request.user.is_authenticated else ''
     return render(request,'index.html', {'inmuebles': inmuebles, 'nombre_usuario': nombre_usuario})
 
+# funcion para agregar inmuebles
 def agregar_inmueble(request):
     if request.method == 'POST':
         form_inmuebles = FormularioInmueble(request.POST)
@@ -26,6 +26,7 @@ def agregar_inmueble(request):
     
     return render (request, 'agregar_inmueble.html', {'form':form_inmuebles})
 
+# clase para registrarse
 class RegistroView(View):
     def get(self, request):
         form = RegistroFormulario()
@@ -44,11 +45,11 @@ class RegistroView(View):
             tipo_usuarios = form.cleaned_data['tipo_usuarios']
             password = form.cleaned_data['password']
             
-            # Crear el usuario
+            # crea el usuario
             UserModel = get_user_model()
             user = UserModel.objects.create_user(username=rut, password=password, email=correo_electronico)
             
-            # Crear el objeto Usuario
+            # crea el objeto Usuario
             usuario = Usuario.objects.create(
                 rut=rut,
                 nombre=nombre,
@@ -57,7 +58,6 @@ class RegistroView(View):
                 telefono_personal=telefono_personal,
                 correo_electronico=correo_electronico,
                 tipo_usuarios=tipo_usuarios,
-                # user=user
             )
             
             login(request, user)
@@ -66,7 +66,7 @@ class RegistroView(View):
         
         return render(request, 'registration/register.html', {'form': form})
 
-    
+# Clase para iniciar sesion
 class LoginView(View):
     def get(self, request):
         form = LoginFormulario()
@@ -85,7 +85,7 @@ class LoginView(View):
                 messages.error(request, "El RUT no existe.")
                 return render(request, 'registration/login.html', {'form': form})
             
-            # Autenticar el usuario
+            # Autenticasion del usuario
             user = authenticate(request, username=rut, password=password)
             if user is not None:
                 login(request, user)
@@ -95,6 +95,7 @@ class LoginView(View):
                 messages.error(request, "RUT o contraseña incorrectos")
         return render(request, 'registration/login.html', {'form': form})
 
+# Funcion de cerrar sesion
 def custom_logout_view(request):
     logout(request)
     messages.success(request, "Has cerrado sesión correctamente.")
