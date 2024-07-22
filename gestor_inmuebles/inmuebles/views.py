@@ -5,11 +5,15 @@ from .models import Usuario
 from django.views import View
 from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib import messages
+from django.contrib.auth import login,logout
+from django.urls import reverse
+
 
 # Create your views here.
 def index (request):
     inmuebles= obtener_inmuebles
-    return render(request,'index.html', {'inmuebles': inmuebles})
+    nombre_usuario = request.user.username if request.user.is_authenticated else ''
+    return render(request,'index.html', {'inmuebles': inmuebles, 'nombre_usuario': nombre_usuario})
 
 def agregar_inmueble(request):
     if request.method == 'POST':
@@ -56,10 +60,13 @@ class RegistroView(View):
                 # user=user
             )
             
+            login(request, user)
+            messages.success(request, f"Bienvenido, {user.username}!")
             return redirect('index')
         
         return render(request, 'registration/register.html', {'form': form})
 
+    
 class LoginView(View):
     def get(self, request):
         form = LoginFormulario()
@@ -71,16 +78,24 @@ class LoginView(View):
         if form.is_valid():
             rut = form.cleaned_data['rut']
             password = form.cleaned_data['password']
-            print(f" {rut} - {password}")
+            
+            UserModel = get_user_model()
+            
+            if not UserModel.objects.filter(username=rut).exists():
+                messages.error(request, "El RUT no existe.")
+                return render(request, 'registration/login.html', {'form': form})
             
             # Autenticar el usuario
-            user = authenticate(request, rut=rut, password=password)
+            user = authenticate(request, username=rut, password=password)
             if user is not None:
-                print(f"el rut: {rut} y la contraseña: {password} no existe")
                 login(request, user)
-                return redirect('index.html')
+                messages.success(request, f"Bienvenido, {user.username}!")
+                return redirect('index')
             else:
                 messages.error(request, "RUT o contraseña incorrectos")
-                
-            return redirect('index')
         return render(request, 'registration/login.html', {'form': form})
+
+def custom_logout_view(request):
+    logout(request)
+    messages.success(request, "Has cerrado sesión correctamente.")
+    return redirect(reverse('index'))

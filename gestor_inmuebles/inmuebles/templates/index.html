@@ -2,7 +2,11 @@
 {% block title %}INDEX{% endblock %}
 
 {%block tabla%}
+
 <h1>Inmuebles</h1>
+    {% if user.is_authenticated %}
+        <h1>Bienvenido, {{ nombre_usuario }}!</h1>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>

@@ -10,11 +10,13 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'agregar_inmueble' %}">agregar inmueble</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Registrar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                    <li>Bienvenido, {{ user.username }}</li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                    <li><a href="{% url 'register' %}">Registrar</a></li>
+                {% endif %}
                 </li>
             </ul>
         </div>
